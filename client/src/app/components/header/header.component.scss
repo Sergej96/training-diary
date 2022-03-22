@@ -1,0 +1,25 @@
+.header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .logo{
+        flex: 1 0 auto;
+    }
+
+    &__nav{
+        flex: 0 0 auto;
+
+        ul{
+            display: flex;
+            justify-content: space-between;
+            max-width: 33%;
+            list-style: none;
+
+            a.active{
+                text-decoration: underline;
+                font-weight: bold;
+            }
+        }
+    }
+}

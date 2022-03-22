@@ -1,0 +1,27 @@
+<div class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+        <div class="img-avatar">
+            <img src="" alt="">
+        </div>
+
+        <mat-form-field appearance="fill" class="input">
+            <mat-label>Логин</mat-label>
+            <input type="email" matInput formControlName="email">
+
+            <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                Please enter a valid email address
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" class="input">
+            <mat-label>Пароль</mat-label>
+            <input type="password" matInput formControlName="password">
+
+            <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                Please enter a valid email address
+            </mat-error>
+        </mat-form-field>
+
+        <button [disabled]="loginForm.invalid" mat-raised-button color="primary" class="btn-login" type="submit">Вход</button>
+    </form>
+</div>

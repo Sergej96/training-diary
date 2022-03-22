@@ -1,0 +1,30 @@
+<mat-toolbar>
+    <header class="header">
+        <div class="logo">
+            <h2>Traning dairy</h2>
+        </div>
+        <nav class="header__nav">
+            <ul>
+                <li><a 
+                    routerLink="/"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}"
+                    mat-button
+                    >Главная</a></li>
+                <li><a 
+                    routerLink="/account"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}"
+                    mat-button
+                    >Аккаунт</a>
+                </li>
+                <li>
+                    <button *ngIf="!isLoggedIn;else logoutTemplate" mat-raised-button color="primary" (click)="openPageLogin()">Вход</button>
+                    <ng-template #logoutTemplate> 
+                        <button mat-raised-button color="primary" (click)="logout()">Выход</button>
+                    </ng-template> 
+                </li>
+            </ul>
+        </nav>
+    </header>
+</mat-toolbar>
