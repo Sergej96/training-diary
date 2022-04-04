@@ -9,10 +9,7 @@ const trainingSchema = new Schema({
         type: Date,
         required: true
     },
-    approaches:[{
-        type: String,
-        ref: 'Approaches'
-    }]
+    approaches:[]
     
 })
 

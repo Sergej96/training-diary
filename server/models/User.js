@@ -1,20 +1,29 @@
 const { Schema, model } = require('mongoose')
+const validator = require('../utils/validators')
 
 const userShema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate: {
+            validator: validator.isEmail,
+            message: 'is not valid'
+        }
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: validator.isPassword,
+            message: '{VALUE} is not valid'
+        }
     },
     roles: [{
         type: String,
         ref: 'Role'
     }],
-    firsName: {
+    firstName: {
         type: String
     },
     lastName: {
@@ -24,5 +33,9 @@ const userShema = new Schema({
         type: Number
     }
 })
+
+const validateEmail = (email) => {
+
+}
 
 module.exports = model('Users', userShema)

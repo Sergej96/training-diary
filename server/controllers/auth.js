@@ -16,7 +16,7 @@ module.exports.login = async (req, res) => {
                 const token = jwt.sign({
                     email: candidate.email,
                     userId: candidate._id
-                }, keys.jwt, {expiresIn: 60*60});
+                }, keys.jwt, {expiresIn: '1h'});
                 return res.status(200).json({
                     token: `Bearer ${token}`})
             }
@@ -37,6 +37,7 @@ module.exports.register = async (req, res) => {
     try{
     
         const { email, password} = req.body;
+        
         const candidate = await User.findOne({email: email})
 
         if (candidate){
@@ -45,7 +46,7 @@ module.exports.register = async (req, res) => {
         else{
             const hashPassword = bcrypt.hashSync(password, 7)
             const userRole = await Role.findOne({value: "USER"})
-            const user = new User({
+            const user = await new User({
                 email: email,
                 password: hashPassword, 
                 roles: [userRole.value]
@@ -57,4 +58,8 @@ module.exports.register = async (req, res) => {
     catch(e){
         errorHandler(res, e)
     }
+}
+
+const validate = (regexp, str) => {
+    return regexp.test(str)
 }

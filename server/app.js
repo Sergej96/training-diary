@@ -16,7 +16,6 @@ mongoose.connect(keys.mongoURI)
     .catch(err => console.log(err))
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(passport.initialize())
 middlewarePassport(passport)
@@ -26,4 +25,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors('dev'))
 
-app.listen(3000, () => console.log(`server port: ${port}`));
+app.use('/api/auth', authRoutes)
+app.use('/api/traning', traningRoutes)
+app.use('/api/user', userRoutes)
+
+module.exports = app
