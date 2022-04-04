@@ -9,7 +9,12 @@
             <input type="email" matInput formControlName="email">
 
             <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-                Please enter a valid email address
+                <span *ngIf="loginForm.get('email')?.errors?.['required']">
+                    Поле email не должно быть пустым
+                </span>
+                <span *ngIf="loginForm.get('email')?.errors?.['email']">
+                    Введите корректный email адрес
+                </span> 
             </mat-error>
         </mat-form-field>
         
@@ -18,10 +23,22 @@
             <input type="password" matInput formControlName="password">
 
             <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                Please enter a valid email address
+                <span *ngIf="loginForm.get('password')?.errors?.['required']">
+                    Поле парольне должно быть пустым
+                </span>
+                <span *ngIf="loginForm.get('password')?.errors?.['pattern']">
+                    Введите корректный пароль
+                </span> 
             </mat-error>
         </mat-form-field>
 
-        <button [disabled]="loginForm.invalid" mat-raised-button color="primary" class="btn-login" type="submit">Вход</button>
+        <button 
+        [disabled]="loginForm.invalid" 
+        mat-raised-button 
+        color="primary" 
+        class="btn-login" 
+        type="submit"
+        >Вход
+        </button>
     </form>
 </div>

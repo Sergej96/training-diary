@@ -15,18 +15,23 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   onSubmitLogin(){
+    this.loginForm.disable()
     this.authService.login(this.loginForm.value).subscribe({
       next: () => this.router.navigate(['account']),
-      error: (err) => alert(err.message)
+      error: (err) => {
+        alert(err.message)
+        this.loginForm.enable()
+      }
     })
   }
+
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       'email': new FormControl('', [Validators.required, Validators.email]),
       'password': new FormControl('', [
         Validators.required, 
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$')
+        Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}')
       ])
     });
 
