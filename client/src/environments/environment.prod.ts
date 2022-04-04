@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiWger: 'https://wger.de/api/v2/'
 };

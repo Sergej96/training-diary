@@ -16,15 +16,14 @@ export class LoginComponent implements OnInit {
 
   onSubmitLogin(){
     this.loginForm.disable()
-    this.authService.login(this.loginForm.value).subscribe({
-      next: () => this.router.navigate(['account']),
-      error: (err) => {
-        alert(err.message)
+    this.authService.login(this.loginForm.value).subscribe(
+      () => this.router.navigate(['account']),
+      (res) => {
+        alert(res.error.message)
         this.loginForm.enable()
       }
-    })
+    )
   }
-
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

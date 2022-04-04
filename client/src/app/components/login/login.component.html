@@ -1,7 +1,7 @@
 <div class="login-form">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
-        <div class="img-avatar">
-            <img src="" alt="">
+        <div class="login-form__avatar">
+            <img src="../../../assets/avatar.jpg" alt="avatar">
         </div>
 
         <mat-form-field appearance="fill" class="input">
@@ -33,7 +33,7 @@
         </mat-form-field>
 
         <button 
-        [disabled]="loginForm.invalid" 
+        [disabled]="loginForm.invalid || loginForm.disabled" 
         mat-raised-button 
         color="primary" 
         class="btn-login" 
