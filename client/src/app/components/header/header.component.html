@@ -19,9 +19,22 @@
                     >Аккаунт</a>
                 </li>
                 <li>
-                    <button *ngIf="!isLoggedIn;else logoutTemplate" mat-raised-button color="primary" (click)="openPageLogin()">Вход</button>
+                    <a
+                    *ngIf="!isLoggedIn"
+                    routerLink="/registration"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}"
+                    mat-button
+                    >Регистрация</a>
+                </li>
+                <li>
+                    <a *ngIf="!isLoggedIn;else logoutTemplate" 
+                    mat-raised-button 
+                    color="primary" 
+                    routerLink="/login"
+                    >Вход</a>
                     <ng-template #logoutTemplate> 
-                        <button mat-raised-button color="primary" (click)="logout()">Выход</button>
+                        <a mat-raised-button color="primary" (click)="logout()">Выход</a>
                     </ng-template> 
                 </li>
             </ul>

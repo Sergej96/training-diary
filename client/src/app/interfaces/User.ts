@@ -3,5 +3,6 @@ export interface User{
     password: string
     firstName: string
     lastName: string
+    birthdate: Date
     weight: number
 }

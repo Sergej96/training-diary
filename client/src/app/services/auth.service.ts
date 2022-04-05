@@ -12,18 +12,21 @@ export class AuthService {
 
     constructor(private router: Router, private http: HttpClient) {}
 
-    private token: string = ''
-
     setToken(token: string){
-        this.token = token;
+        localStorage.setItem('token', token);
     }
 
-    getToken(){
-        return this.token
+    getToken(): string{
+        const tokenValue = localStorage.getItem('token')
+        return tokenValue ? tokenValue : ''
     }
 
     isLoggedIn(){
         return !!this.getToken();
+    }
+
+    register(userInfo: User): Observable<User> {
+        return this.http.post<User>('api/auth/register', userInfo)
     }
 
     login(userInfo: User): Observable<{token: string}> {
@@ -31,7 +34,6 @@ export class AuthService {
             .pipe(
                 tap(
                     ({token}) => {
-                        localStorage.setItem('token', token);
                         this.setToken(token)
                     }
                 )

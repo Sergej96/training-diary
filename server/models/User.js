@@ -29,6 +29,9 @@ const userShema = new Schema({
     lastName: {
         type: String
     },
+    birthdate: {
+        type: Date
+    },
     weight: {
         type: Number
     }

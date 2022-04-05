@@ -36,7 +36,7 @@ module.exports.login = async (req, res) => {
 module.exports.register = async (req, res) => {
     try{
     
-        const { email, password} = req.body;
+        const { email, password, firstName, lastName, birthdate} = req.body;
         
         const candidate = await User.findOne({email: email})
 
@@ -47,9 +47,12 @@ module.exports.register = async (req, res) => {
             const hashPassword = bcrypt.hashSync(password, 7)
             const userRole = await Role.findOne({value: "USER"})
             const user = await new User({
-                email: email,
+                email,
                 password: hashPassword, 
-                roles: [userRole.value]
+                roles: [userRole.value],
+                firstName,
+                lastName,
+                birthdate
             })
             await user.save()
             return res.status(201).json({message: "Пользователь зарегистрирован"})
