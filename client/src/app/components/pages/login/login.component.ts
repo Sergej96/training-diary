@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,18 +12,26 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  hidePassword: Boolean = true;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private activedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar) { }
 
   onSubmitLogin(){
     this.loginForm.disable()
     this.authService.login(this.loginForm.value).subscribe(
       () => this.router.navigate(['account']),
       (res) => {
-        alert(res.error.message)
+        this._snackBar.open(res.error.message, 'Закрыть', {
+          verticalPosition: 'top'
+        })
         this.loginForm.enable()
       }
     )
+
   }
 
   ngOnInit(): void {
@@ -37,6 +46,25 @@ export class LoginComponent implements OnInit {
     if (this.authService.isLoggedIn()){
       this.router.navigate(['account'])
     }
+
+    this.activedRoute.queryParams.subscribe((params: Params) => {
+      if (params['registered']){
+        this._snackBar.open('Авторизуйтесь чтобы войти в свой аккаунт', 'Закрыть', {
+          verticalPosition: 'top',
+          duration: 3000
+        })
+      } else if (params['unauthorized']){
+        this._snackBar.open('Пожалуйста авторизуйтесь', 'Закрыть', {
+          verticalPosition: 'top',
+          duration: 3000
+        })
+      } else if (params['sessionEnd']){
+        this._snackBar.open('Время сессии закончилось', 'Закрыть', {
+          verticalPosition: 'top',
+          duration: 3000
+        })
+      }
+    })
   }
 
 }

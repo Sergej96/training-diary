@@ -16,13 +16,25 @@
                         </span>
                         <span *ngIf="loginForm.get('email')?.errors?.['email']">
                             Введите корректно почтовый адрес
-                        </span> 
+                        </span>
                     </mat-error>
                 </mat-form-field>
-                
+
                 <mat-form-field appearance="fill" class="input">
                     <mat-label>Пароль</mat-label>
-                    <input type="password" matInput formControlName="password">
+                    <input type="password"
+                      [type]="hidePassword ? 'password' : 'text'"
+                      matInput formControlName="password">
+                    <button
+                        mat-icon-button
+                        matSuffix
+                        [type]="'button'"
+                        (click)="hidePassword = !hidePassword"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hidePassword"
+                    >
+                      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
 
                     <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
                         <span *ngIf="loginForm.get('password')?.errors?.['required']">
@@ -30,15 +42,15 @@
                         </span>
                         <span *ngIf="loginForm.get('password')?.errors?.['pattern']">
                             Введите корректный пароль
-                        </span> 
+                        </span>
                     </mat-error>
                 </mat-form-field>
 
-                <button 
-                [disabled]="loginForm.invalid || loginForm.disabled" 
-                mat-raised-button 
-                color="primary" 
-                class="btn-login" 
+                <button
+                [disabled]="loginForm.invalid || loginForm.disabled"
+                mat-raised-button
+                color="primary"
+                class="btn-login"
                 type="submit"
                 >Вход
                 </button>

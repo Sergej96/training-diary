@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,7 +15,10 @@ export class RegistrationComponent implements OnInit {
   minDate!: Date;
   maxDate!: Date;
 
-  constructor(private auth: AuthService, private router: Router) { 
+  constructor(
+    private auth: AuthService, 
+    private router: Router, 
+    private _snackBar: MatSnackBar) { 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 100, 0, 1);
     this.maxDate = new Date(currentYear - 16, 0, 1);
@@ -44,7 +48,10 @@ export class RegistrationComponent implements OnInit {
         })
       },
       (res) => {
-        alert(res.error.message)
+        this._snackBar.open(res.error.message, 'Закрыть', {
+          verticalPosition: 'top',
+          duration: 3000
+        })
       }
     )
   }
