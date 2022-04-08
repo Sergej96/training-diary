@@ -1,0 +1,50 @@
+<nav class="left-menu">
+    <ul class="left-menu__list">
+        <li class="left-menu__item">
+            <a 
+            mat-button 
+            class="left-menu__link"
+            routerLink="./training"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}"
+            >
+                Список тренировок
+            </a>
+        </li>
+        <li class="left-menu__item">
+            <a 
+                mat-button 
+                class="left-menu__link"
+                routerLink="./training/new"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}"
+            >
+                Создать тренировку
+            </a>
+        </li>
+        <li class="left-menu__item">
+                <a mat-button 
+                class="left-menu__link"
+                routerLink="./training/progress"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}"
+            >
+                Прогресс тренировок
+            </a>
+        </li>
+        <li class="left-menu__item">
+                <a mat-button 
+                class="left-menu__link"
+                routerLink="all-users"
+                routerLinkActive="active"
+            >
+                Список клиентов
+            </a>
+        </li>
+        <li class="left-menu__item">
+            <a mat-button class="left-menu__link">
+                Редактировать профиль
+            </a>
+        </li>
+    </ul>
+</nav>

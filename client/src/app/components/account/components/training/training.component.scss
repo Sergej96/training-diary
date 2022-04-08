@@ -1,0 +1,19 @@
+.title-page{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.training-list{
+
+    &__item{
+        
+    }
+
+    &__link{
+        display: block;
+        width: 100%;
+        margin: 0 5px;
+        padding: 5px;
+    }
+}

@@ -1,0 +1,36 @@
+<div class="title-page">
+    <h4>тренировки</h4>
+    <button
+    mat-raised-button
+    color="primary"
+    routerLink="./new">Добавить тренировку</button>
+</div>
+
+<section
+  class="training-list"
+  *ngIf="trainings$ | async as trainings; else loader"
+>
+    <div
+    class="training-list__wrapper"
+    *ngFor="let training of trainings"
+    >
+      <div
+        class="training-list__item"
+        *ngIf="trainings.length;else notTrainings"
+      >
+        <a
+          class="training-list__link"
+          [routerLink]="['/training', training._id]"
+          >{{training._id}}
+        </a>
+      </div>
+      <ng-template #notTrainings>
+        <div class="center">
+          <p>У вас пока нет тренировак</p>
+        </div>
+      </ng-template>
+  </div>
+</section>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
