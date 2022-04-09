@@ -1,6 +1,16 @@
 const User = require('../models/User')
 const errorHandler = require("../utils/errorHandler")
 
+module.exports.getAllUsers = async (req, res) => {
+    try{
+        const users = await User.find()
+        return res.status(200).json(users)
+    }   
+    catch(e){
+        errorHandler(res, e)
+    } 
+}
+
 module.exports.getById = async (req, res) => {
     try{
         const user = await User.findById(req.params.id)

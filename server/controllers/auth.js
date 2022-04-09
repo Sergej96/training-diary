@@ -18,7 +18,9 @@ module.exports.login = async (req, res) => {
                     userId: candidate._id
                 }, keys.jwt, {expiresIn: '1h'});
                 return res.status(200).json({
-                    token: `Bearer ${token}`})
+                    token: `Bearer ${token}`,
+                    roles: candidate.roles
+                })
             }
             else{
                 return res.status(401).json({message: 'Пароль не верный'})
