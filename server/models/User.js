@@ -19,10 +19,13 @@ const userShema = new Schema({
             message: '{VALUE} is not valid'
         }
     },
-    roles: [{
+    trainings: [{
+        type: String
+    }],
+    role: {
         type: String,
         ref: 'Role'
-    }],
+    },
     firstName: {
         type: String
     },
