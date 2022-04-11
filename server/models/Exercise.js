@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const ApproachesShema = require('./Approaches')
+const ApproacheShema = require('./Approache')
 
 const exerciesShema = new Schema({
     exerciseId: {
@@ -10,7 +10,7 @@ const exerciesShema = new Schema({
         type: Number,
         default: 0
     },
-    approaches: [ApproachesShema],
+    approaches: [ApproacheShema],
 
 })
 

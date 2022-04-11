@@ -1,11 +1,11 @@
 const { Schema } = require('mongoose')
 
-const approachesShema = new Schema({
+const approacheShema = new Schema({
     weight: {
         type: Number
     },
     breakBeforeInSec: {
-        type: Date,
+        type: String,
         default: 60
     },
     repeat: {
@@ -13,4 +13,4 @@ const approachesShema = new Schema({
     }
 })
 
-module.exports = approachesShema
+module.exports = approacheShema

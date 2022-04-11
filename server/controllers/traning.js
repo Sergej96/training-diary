@@ -1,7 +1,6 @@
 const Training = require('../models/Training')
 const Exercise = require('../models/Exercise')
 const errorHandler = require("../utils/errorHandler")
-const User = require('../models/User')
 
 
 function checkRoleAdmin(req) {
@@ -10,15 +9,21 @@ function checkRoleAdmin(req) {
 
 module.exports.getByUserTraining = async (req, res) => {
     try {
-        let trainings = await Training.find({ userId: req.params.userId })
+
+        const trainings = await Training.find({ userId: req.params.userId })
+        console.log(111111111111111111111)
+
+        console.log(trainings)
         for (let i = 0; i < trainings.length; i++) {
-            let exercisesRes = []
             for (let j = 0; j < trainings[i].exercises.length; j++) {
-                let exercise = await Exercise.findById(trainings[i].exercises[j])
-                exercisesRes.push(exercise)
+                console.log(333333333333333333333333333)
+                console.log(trainings)
+                trainings[i].exercises[j] = await Exercise.find({_id:trainings[i].exercises[j]})
             }
-            trainings[i].exercises = exercisesRes
         }
+        console.log(2222222222222222222)
+        console.log(trainings)
+
         return res.status(200).json(trainings)
     }
     catch (e) {
@@ -65,7 +70,9 @@ module.exports.update = async (req, res) => {
             const dataTrainings = req.body.trainings
             for (let i = 0; i < dataTrainings.length; i++) {
                 const exercisesId = []
+                console.log(12222);
                 for (let j = 0; j < dataTrainings[i].exercises.length; j++) {
+                    console.log(444);
                     let exercise = await Exercise.findOneAndUpdate(
                         { _id: dataTrainings[i].exercises[j]._id },
                         { $set: dataTrainings[i].exercises[j] },
@@ -79,7 +86,7 @@ module.exports.update = async (req, res) => {
             //     { $set: req.body },
             //     { new: true }//дождётся когда измениеня запишутся в БД
             // )
-            return res.status(200).json(training)
+            return res.status(200).json({message: 'updated'})
         }
 
         return res.status(403).json({ message: 'У вас нет прав на изменения страницы' })

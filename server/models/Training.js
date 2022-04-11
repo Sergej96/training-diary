@@ -7,7 +7,7 @@ const trainingSchema = new Schema({
         required: true
     },
     exercises: [{
-        type: Schema.Types.ObjectId,
+        type: Object,
         ref: 'Exercise'
     }],
     userId: {
