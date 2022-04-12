@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
@@ -14,7 +13,7 @@ import { RegistrationComponent } from './components/pages/registration/registrat
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SiteLayoutsComponent } from './shared/layouts/site-layouts/site-layouts.component';
 import { ShareModule } from './shared/shared.module';
-import { AccountModule } from './components/account/account.module';
+import { AdminModule } from './components/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -23,17 +22,15 @@ import { AccountModule } from './components/account/account.module';
     HomeComponent,
     NotFoundComponent,
     RegistrationComponent,
-    SiteLayoutsComponent,
+    SiteLayoutsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     ShareModule,
-    AccountModule
+    AdminModule
     ],
   providers: [
     {

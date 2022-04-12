@@ -15,15 +15,22 @@ export class LoginComponent implements OnInit {
   hidePassword: Boolean = true;
 
   constructor(
-    private authService: AuthService, 
-    private router: Router, 
+    private authService: AuthService,
+    private router: Router,
     private activedRoute: ActivatedRoute,
     private _snackBar: MatSnackBar) { }
 
-  onSubmitLogin(){
+  onSubmitLogin() {
     this.loginForm.disable()
     this.authService.login(this.loginForm.value).subscribe(
-      () => this.router.navigate(['account']),
+      (res) => {
+        if (res.role == 'ADMIN') {
+          this.router.navigate(['admin'])
+        }
+        else {
+          this.router.navigate(['account'])
+        }
+      },
       (res) => {
         this._snackBar.open(res.error.message, 'Закрыть', {
           verticalPosition: 'top'
@@ -38,32 +45,38 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       'email': new FormControl('', [Validators.required, Validators.email]),
       'password': new FormControl('', [
-        Validators.required, 
+        Validators.required,
         Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}')
       ])
     });
 
-    if (this.authService.isLoggedIn()){
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['account'])
     }
 
     this.activedRoute.queryParams.subscribe((params: Params) => {
-      if (params['registered']){
+      if (params['registered']) {
         this._snackBar.open('Авторизуйтесь чтобы войти в свой аккаунт', 'Закрыть', {
           verticalPosition: 'top',
           duration: 3000
         })
-      } else if (params['unauthorized']){
+      } else if (params['unauthorized']) {
         this._snackBar.open('Пожалуйста авторизуйтесь', 'Закрыть', {
           verticalPosition: 'top',
           duration: 3000
         })
-      } else if (params['sessionEnd']){
+      } else if (params['sessionEnd']) {
         this._snackBar.open('Время сессии закончилось', 'Закрыть', {
           verticalPosition: 'top',
           duration: 3000
         })
       }
+      // else if (!params['admin']){
+      //   this._snackBar.open('Вы не администратор', 'Закрыть', {
+      //     verticalPosition: 'top',
+      //     duration: 3000
+      //   })
+      // }
     })
   }
 

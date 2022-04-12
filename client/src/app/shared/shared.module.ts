@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuComponent } from '../components/account/components/menu/menu.component';
+import { LeftMenuComponent } from './components/left-menu/left-menu.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { LoaderComponent } from './components/loader/loader.component';
@@ -12,22 +13,26 @@ import { MaterialModule } from './material.module';
     declarations: [
         HeaderComponent,
         FooterComponent,
-        MenuComponent,
+        LeftMenuComponent,
         LoaderComponent
     ],
     imports: [
         CommonModule,
         MaterialModule,
         RouterModule,
-        CommonModule
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     exports: [
         HeaderComponent,
         FooterComponent,
-        MenuComponent,
+        LeftMenuComponent,
         LoaderComponent,
         MaterialModule,
-        CommonModule
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 

@@ -13,4 +13,8 @@ export class TrainingService{
   listTrainings(): Observable<Training[]>{
     return this.http.get<Training[]>('api/traning/')
   }
+
+  trainingsUser(userId: string): Observable<Training[]>{
+    return this.http.get<Training[]>('api/training/user/' + userId)
+  }
 }

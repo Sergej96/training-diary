@@ -6,13 +6,16 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthAdminGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    const adminPath = route.routeConfig?.path
+
     if (!this.authService.isLoggedIn()){
       this.router.navigate(['login'], {
         queryParams: {
@@ -21,6 +24,13 @@ export class AuthGuard implements CanActivate {
       });
       return false;
     }
-    return true;
+    else if(adminPath == 'admin' && this.authService.checkAdmin()){
+      return true;
+    }
+    else{
+      this.router.navigate(['']);
+      return false;
+    }
   }
+
 }

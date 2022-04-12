@@ -1,21 +1,10 @@
 <nav class="left-menu">
     <ul class="left-menu__list">
         <li class="left-menu__item">
-            <a 
-            mat-button 
-            class="left-menu__link"
-            routerLink="./training"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact:true}"
-            >
-                Список тренировок
-            </a>
-        </li>
-        <li class="left-menu__item">
-            <a 
-                mat-button 
+            <a
+                mat-button
                 class="left-menu__link"
-                routerLink="./training/new"
+                routerLink="/admin/training/new"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact:true}"
             >
@@ -23,9 +12,9 @@
             </a>
         </li>
         <li class="left-menu__item">
-                <a mat-button 
+                <a mat-button
                 class="left-menu__link"
-                routerLink="./training/progress"
+                routerLink="/admin/training/progress"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact:true}"
             >
@@ -33,9 +22,9 @@
             </a>
         </li>
         <li class="left-menu__item">
-                <a mat-button 
+                <a mat-button
                 class="left-menu__link"
-                routerLink="all-users"
+                routerLink="/admin/users"
                 routerLinkActive="active"
             >
                 Список клиентов

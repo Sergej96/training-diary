@@ -1,0 +1,19 @@
+<section class="user-list" *ngIf="users$ | async as users; else loader">
+  <div class="user-list__item" *ngIf="users.length !== 0; else empty">
+    <div *ngFor="let user of users">
+      <a [routerLink]="[user._id, 'training']">
+        name :{{user.firstName}}, sorename: {{user.lastName}}
+      </a>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="center">
+      <p>Список пользователей пустой</p>
+    </div>
+  </ng-template>
+</section>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
