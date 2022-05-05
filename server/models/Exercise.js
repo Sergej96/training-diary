@@ -6,9 +6,8 @@ const exerciesShema = new Schema({
         type: String,
         required: true
     },
-    order: {
-        type: Number,
-        default: 0
+    name: {
+        type: String
     },
     approaches: [ApproacheShema],
 
