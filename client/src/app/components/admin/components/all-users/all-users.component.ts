@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/interfaces/User';
@@ -6,7 +6,8 @@ import { User } from 'src/app/interfaces/User';
 @Component({
   selector: 'app-all-users',
   templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.scss']
+  styleUrls: ['./all-users.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllUsersComponent implements OnInit {
 
