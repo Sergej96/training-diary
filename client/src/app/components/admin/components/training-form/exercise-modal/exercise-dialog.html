@@ -1,0 +1,42 @@
+<div class="exercise">
+  <h2 mat-dialog-title>Выберите упражнения</h2>
+  <mat-dialog-content *ngIf="musclesData; else loader">
+    <div class="exercise__muscle">
+      <mat-form-field appearance="fill">
+        <mat-label>Выберите группу мышц</mat-label>
+        <mat-select name="muscles" [(ngModel)]="defaultOption" (ngModelChange)="onMuscleChange($event)">
+          <mat-option *ngFor="let muscle of musclesData; let i=index" [value]="i">
+            {{muscle}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="exercises$ | async as exercises; else loader">
+      <div class="exercise__list" *ngIf="exercises?.length !== 0; else empty">
+        <a class="exercise__item" *ngFor="let exercise of exercises" [mat-dialog-close]="exercise">
+          <div class="exercise__img">
+            <img src="" alt="exercise">
+            <button mat-stroked-button>
+              <mat-icon aria-hidden="false" aria-label="Просмотреть описание упражнения">help
+              </mat-icon>
+            </button>
+          </div>
+          <div class="exercise__title">
+            <h4>{{exercise.name}}</h4>
+          </div>
+        </a>
+      </div>
+    </div>
+    <ng-template #empty>
+      <div class="center">
+        Упражнений нет
+      </div>
+    </ng-template>
+  </mat-dialog-content>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+  <mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial>Закрыть</button>
+  </mat-dialog-actions>
+</div>

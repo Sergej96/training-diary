@@ -1,0 +1,39 @@
+.exercise {
+  margin: 16px 0 16px;
+
+  .container {
+    margin-top: 20px;
+  }
+}
+
+.form__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .input {
+    flex: 0 1 48%;
+    margin-bottom: 10px;
+  }
+
+  .muscles__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    h5 {
+      flex: 1 1 100%;
+    }
+
+    p{
+      flex: 0 1 8%;
+      margin-left: 10px;
+    }
+
+  }
+
+  .btn-submit{
+    margin-top: 16px;
+    margin-left: auto;
+  }
+}
