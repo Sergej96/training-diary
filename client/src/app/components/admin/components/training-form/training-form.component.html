@@ -1,0 +1,123 @@
+<div class="training">
+  <div class="page__title">
+    <h2>
+      Расписание тренировок
+    </h2>
+  </div>
+  <div *ngIf="!loading; else loader">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="training__wrapper">
+        <div class="training__main">
+          <div class="training__toolbar">
+            <button mat-flat-button color="primary"
+              [disabled]="form.invalid || form.disabled"
+            >Сохранить изминения
+            </button>
+            <button
+              class="clear"
+              mat-flat-button
+              color="warn"
+              type="button"
+              (click)="refreshForm()"
+              [disabled]="form.disabled"
+              >Сбросить изминения</button>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div formArrayName="trainings" class="trainings">
+            <div class="trianing-container"
+              [formGroupName]="ti"
+              *ngIf="selectTraining;else empty">
+              <app-exercise-modal
+                (removeEvent)="removeExercises(ti)"
+                (addEvent)="addExercise(ti,$event)"
+              >
+              </app-exercise-modal>
+              <div formArrayName="exercises" class="exercise-container">
+
+                <div
+                [formGroupName]="ei"
+                *ngFor="let exercise of getExercises(ti).controls; index as ei">
+                  <mat-form-field appearance="fill" class="input">
+                    <mat-label>Название упражнения</mat-label>
+                    <input matInput formControlName="name">
+                  </mat-form-field>
+                  <button
+                    type="button"
+                    mat-raised-button
+                    color="primary" (click)="addApproache(ti,ei)"
+                  >Добавить подход</button>
+                  <button
+                    type="button"
+                    mat-raised-button
+                    color="warn"
+                    (click)="removeExercise(ti, ei)"
+                  >Удалить упражнение</button>
+
+
+                  <div formArrayName="approaches">
+                    <div [formGroupName]="ai" *ngFor="let approache of getApproaches(ti,ei).controls; index as ai">
+
+                      <mat-form-field appearance="fill" class="input">
+                        <mat-label>Вес сноряда</mat-label>
+                        <input matInput formControlName="weight">
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill" class="input">
+                        <mat-label>Количество повторений</mat-label>
+                        <input matInput formControlName="breakBeforeInSec">
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill" class="input">
+                        <mat-label>Время отдыха между подходами сек.</mat-label>
+                        <input matInput formControlName="repeat">
+                      </mat-form-field>
+
+                      <button
+                        type="button"
+                        mat-raised-button
+                        color="warn"
+                       (click)="removeApproache(ti, ei, ai)"
+                       >Delete</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <ng-template #empty>
+            <div class="center">
+              Список тренировок пустой
+            </div>
+            <button
+              mat-raised-button
+              type="button"
+              (click)="addTraining()"
+              >Создать тренировку</button>
+          </ng-template>
+          <pre> {{form.value | json}} </pre>
+        </div>
+
+        <div class="training__right-column">
+          <div *ngIf="!loading" class="accordion-content">
+            <mat-card class="demo-inline-calendar-card">
+              <mat-calendar
+                [selected]="selectDate"
+                (selectedChange)="onSelectDate($event)"
+                [dateClass]="dateClass()">
+              </mat-calendar>
+            </mat-card>
+          </div>
+
+          <p>Selected date: {{selectDate | date:'dd-MM-YYYY'}}</p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</div>
