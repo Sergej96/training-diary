@@ -1,0 +1,25 @@
+<mat-list class="exercise__list" *ngIf="exercises?.length !== 0; else empty">
+  <mat-list-item class="exercise__item" *ngFor="let exercise of exercises; trackBy: trackExercise" >
+    <a
+      class="exercise__link"
+      [routerLink]="exercise._id">
+      <span class="title">{{exercise.name}}</span>
+    </a>
+
+    <button
+      *ngIf="edit"
+      type="button"
+      mat-raised-button
+      color="warn"
+      (click)="onDelete(exercise)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<ng-template #empty>
+  <div class="center">
+    <p>Список упражнений пустой</p>
+  </div>
+</ng-template>
