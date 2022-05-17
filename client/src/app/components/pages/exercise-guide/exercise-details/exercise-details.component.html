@@ -1,0 +1,35 @@
+<div class="page__title">
+  <h1>Упражнения</h1>
+</div>
+<div class="breadpath">
+  Перейти:
+  <a routerLink="/account/exercises">
+    Упражнения
+  </a>
+</div>
+<ng-container *ngIf="exerciseInfo$ | async as exerciseInfo; else loader">
+
+
+  <section class="muscle">
+    Группы мышц: <span>{{exerciseInfo.muscles | arrayMap :showMuscle}}</span>
+  </section>
+
+  <section class="description" *ngIf="exerciseInfo.description">
+    <h3>Описание:</h3>
+    <p>{{exerciseInfo.description}}</p>
+  </section>
+
+  <section class="technique" *ngIf="exerciseInfo.technique">
+    <h3>Техника выполнения упражнения</h3>
+    <p>{{exerciseInfo.technique}}</p>
+  </section>
+
+  <section class="recomendate" *ngIf="exerciseInfo.recomend">
+    <h3>Рекомендации</h3>
+    <p>{{exerciseInfo.recomend}}</p>
+  </section>
+</ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
