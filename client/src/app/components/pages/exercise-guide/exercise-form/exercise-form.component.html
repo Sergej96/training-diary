@@ -1,0 +1,66 @@
+<div class="exercise">
+  <div class="page__title">
+    <h4 class="title"> <a routerLink="/admin/exercises">Упражнения</a>
+      <mat-icon aria-hidden="false">chevron_right</mat-icon>
+      {{isNew ? 'Добавить': 'Редоктировать'}} упражнение
+    </h4>
+  </div>
+  <div class="form" *ngIf="!loading;else loader">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form__wrapper">
+          <mat-form-field appearance="fill" class="input">
+            <mat-label>Название упражнения</mat-label>
+            <input type="text" matInput formControlName="name">
+
+            <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                <span *ngIf="form.get('name')?.errors?.['required']">
+                  Укажите Название упражнения
+                </span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="input">
+            <mat-label>Описание упражнения</mat-label>
+            <textarea
+              matInput
+              rows="5"
+              formControlName="description"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="input">
+            <mat-label>Техника выполнения </mat-label>
+            <textarea
+              matInput
+              rows="5"
+              formControlName="technique"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="input">
+            <mat-label>Рекомендации </mat-label>
+            <textarea
+              matInput
+              rows="5"
+              formControlName="recomend"></textarea>
+          </mat-form-field>
+
+          <div class="muscles__wrapper" formArrayName="muscles">
+            <h5>Группа мышц*</h5>
+            <p
+              *ngFor="let muscle of musclesData; let i = index; trackBy: trackMuscle"
+            >
+              <mat-checkbox [formControlName]="i">{{muscle.name}}</mat-checkbox>
+            </p>
+          </div>
+          <button
+          class="btn-submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid "
+          >Сохранить</button>
+        </div>
+    </form>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</div>
