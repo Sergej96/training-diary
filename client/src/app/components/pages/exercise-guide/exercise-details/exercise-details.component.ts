@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Observable, of, Subject, switchMap, takeUntil } from "rxjs";
+import { Observable, of, switchMap } from "rxjs";
 import { ExerciseInfo } from "src/app/interfaces/ExerciseInfo";
 import { Muscle } from "src/app/interfaces/Muscle";
 import { ExercisesService } from "src/app/services/exercises.service";
@@ -11,8 +11,6 @@ import { ExercisesService } from "src/app/services/exercises.service";
   styleUrls: ['./exercise-details.component.scss']
 })
 export class ExerciseDetailsComponent implements OnInit {
-
-  private destroy_: Subject<unknown> = new Subject()
 
   exerciseInfo$!: Observable<ExerciseInfo | null>
 
@@ -25,15 +23,15 @@ export class ExerciseDetailsComponent implements OnInit {
       .pipe(
         switchMap((params: Params) => {
           if (params['id']) {
-            return this.exerciseService.getById(params['id'])
+            return this.exerciseService.getById(params['id']);
           }
-          return of(null)
+          return of(null);
         })
       )
   }
 
-  showMuscle(item: Muscle){
-    return " " + item.name
+  showMuscle(item: Muscle) {
+    return " " + item.name;
   }
 
 

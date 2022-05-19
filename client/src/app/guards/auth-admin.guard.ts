@@ -24,7 +24,7 @@ export class AuthAdminGuard implements CanActivate {
       });
       return false;
     }
-    else if(adminPath == 'admin' && this.authService.checkAdmin()){
+    else if(adminPath == 'admin' && this.authService.isAdmin()){
       return true;
     }
     else{

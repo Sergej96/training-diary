@@ -1,38 +1,15 @@
 <nav class="left-menu">
     <ul class="left-menu__list">
-        <li class="left-menu__item">
+        <li *ngFor="let item of isAdmin ? menuAdmin : menuUser"
+          class="left-menu__item">
             <a
                 mat-button
                 class="left-menu__link"
-                routerLink="/admin/training/new"
+                [routerLink]="item.ref"
                 routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact:true}"
+                [routerLinkActiveOptions]="{exact:item?.exact ? item.exact: false}"
             >
-                Создать тренировку
-            </a>
-        </li>
-        <li class="left-menu__item">
-                <a mat-button
-                class="left-menu__link"
-                routerLink="/admin/training/progress"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact:true}"
-            >
-                Прогресс тренировок
-            </a>
-        </li>
-        <li class="left-menu__item">
-                <a mat-button
-                class="left-menu__link"
-                routerLink="/admin/users"
-                routerLinkActive="active"
-            >
-                Список клиентов
-            </a>
-        </li>
-        <li class="left-menu__item">
-            <a mat-button class="left-menu__link">
-                Редактировать профиль
+                {{item.name}}
             </a>
         </li>
     </ul>

@@ -1,0 +1,13 @@
+<mat-expansion-panel [formGroup]="item" [expanded]="false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{exerciseName ? exerciseName : item.value.name}}
+      <button type="button" mat-raised-button color="warn" (click)="removed.emit(index)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <app-approaches-form-array formArrayName="approaches" [itemsFormArray]="item.get('approaches')!">
+  </app-approaches-form-array>
+</mat-expansion-panel>

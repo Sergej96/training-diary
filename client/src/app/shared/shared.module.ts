@@ -7,6 +7,9 @@ import { FooterComponent } from '../components/footer/footer.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MaterialModule } from './material.module';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { ArrayMapPipe } from '../pipes/array-map.pipe';
+import { InputNumberComponent } from './components/input-number/input-number.component';
 
 
 @NgModule({
@@ -14,7 +17,10 @@ import { MaterialModule } from './material.module';
         HeaderComponent,
         FooterComponent,
         LeftMenuComponent,
-        LoaderComponent
+        LoaderComponent,
+        CalendarComponent,
+        ArrayMapPipe,
+        InputNumberComponent
     ],
     imports: [
         CommonModule,
@@ -29,6 +35,9 @@ import { MaterialModule } from './material.module';
         FooterComponent,
         LeftMenuComponent,
         LoaderComponent,
+        CalendarComponent,
+        InputNumberComponent,
+        ArrayMapPipe,
         MaterialModule,
         CommonModule,
         FormsModule,

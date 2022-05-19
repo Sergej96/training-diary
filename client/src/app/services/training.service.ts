@@ -10,11 +10,15 @@ export class TrainingService{
 
   constructor(private http: HttpClient){}
 
-  listTrainings(): Observable<Training[]>{
-    return this.http.get<Training[]>('api/traning/')
+  getByIdUser(userId: string): Observable<Training[]>{
+    return this.http.get<Training[]>(`api/training/user/${userId}`)
   }
 
-  trainingsUser(userId: string): Observable<Training[]>{
-    return this.http.get<Training[]>('api/training/user/' + userId)
+  getUser(): Observable<Training[]>{
+    return this.http.get<Training[]>(`api/training/user/`)
+  }
+
+  save(data:any): Observable<any>{
+    return this.http.post<any>(`api/training`,data)
   }
 }

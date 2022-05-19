@@ -1,45 +1,39 @@
 const Training = require('../models/Training')
 const Exercise = require('../models/Exercise')
+const ExerciseInfo = require('../models/ExerciseInfo')
 const errorHandler = require("../utils/errorHandler")
 
 
-function checkRoleAdmin(req) {
-    return req.user.role == 'ADMIN'
-}
-
 module.exports.getByUserTraining = async (req, res) => {
     try {
+        const userId = checkRoleAdmin(req) ? req.params.userId : req.user.id
+        const trainings = await Training.find({ userId: userId })
 
-        const trainings = await Training.find({ userId: req.params.userId })
-        console.log(111111111111111111111)
-
-        console.log(trainings)
         for (let i = 0; i < trainings.length; i++) {
             for (let j = 0; j < trainings[i].exercises.length; j++) {
-                console.log(333333333333333333333333333)
-                console.log(trainings)
-                trainings[i].exercises[j] = await Exercise.find({_id:trainings[i].exercises[j]})
+                trainings[i].exercises[j] = await Exercise.findOne({_id:trainings[i].exercises[j]})
+                trainings[i].exercises[j].info = await ExerciseInfo.findOne({_id:trainings[i].exercises[j].exerciseId})
             }
         }
-        console.log(2222222222222222222)
-        console.log(trainings)
-
-        return res.status(200).json(trainings)
+        return res.status(200).json(trainings) 
     }
     catch (e) {
         errorHandler(res, e)
     }
 }
 
-module.exports.creat = async (req, res) => {
+module.exports.save = async (req, res) => {
     try {
         if (checkRoleAdmin(req)) {
 
             const dataTrainings = req.body.trainings
             const trainingsId = []
+            remove(req.body.userId)
 
             for (let i = 0; i < dataTrainings.length; i++) {
                 const exercises = []
+                if (dataTrainings[i].exercises.length == 0) continue;
+
                 for (let j = 0; j < dataTrainings[i].exercises.length; j++) {
                     let exercise = await new Exercise(dataTrainings[i].exercises[j]).save()
                     exercises.push(exercise._id)
@@ -52,7 +46,7 @@ module.exports.creat = async (req, res) => {
                 trainingsId.push(training._id)
             }
 
-            return res.status(200).json({ message: 'Тренировки сосзданы' })
+            return res.status(200).json({ message: 'Изменения внеснены' })
         }
         return res.status(403).json({ message: 'У вас нет прав для создания тренировки' })
     }
@@ -62,62 +56,24 @@ module.exports.creat = async (req, res) => {
 
 }
 
-module.exports.update = async (req, res) => {
-
+remove = async (userId) => {
     try {
-        if (checkRoleAdmin(req)) {
-
-            const dataTrainings = req.body.trainings
-            for (let i = 0; i < dataTrainings.length; i++) {
-                const exercisesId = []
-                console.log(12222);
-                for (let j = 0; j < dataTrainings[i].exercises.length; j++) {
-                    console.log(444);
-                    let exercise = await Exercise.findOneAndUpdate(
-                        { _id: dataTrainings[i].exercises[j]._id },
-                        { $set: dataTrainings[i].exercises[j] },
-                        { new: true }
-                    )
-                }
+        const trainings = await Training.find({ userId: userId })
+        for (let i = 0; i < trainings.length; i++) {
+            const training = await Training.deleteMany({ userId: userId })
+            for (let j = 0; j < training.exercises.length; j++) {
+                await Exercise.remove({ _id: training.exercises[i] })
 
             }
-            // const training = await Training.findOneAndUpdate(
-            //     { userId: req.params.id },
-            //     { $set: req.body },
-            //     { new: true }//дождётся когда измениеня запишутся в БД
-            // )
-            return res.status(200).json({message: 'updated'})
         }
-
-        return res.status(403).json({ message: 'У вас нет прав на изменения страницы' })
+        return res.status(200).json(exerciseIds)
     }
+
     catch (e) {
-        errorHandler(res, e)
+        console.log(e);
     }
-
 }
 
-module.exports.remove = async (req, res) => {
-    try {
-        if (checkRoleAdmin(req)) {
-            // const dataTrainings = req.body.trainings
-            // for(let i =0; i< dataTrainings.length; i++){
-            //     for(let j = 0; j<dataTrainings[i].exercises.length; j++){
-            //         await Exercise.remove(trainingId: dataTrainings[i]._id)
-            //     }
-            // }
-            const exerciseIds = await Training.findOneAndRemove({ _id: req.params.id })
-            for (let i = 0; i < exerciseIds.exercises.length; i++) {
-                await Exercise.remove({ _id: exerciseIds.exercises[i] })
-
-            }
-            //await Training.remove({ _id: req.params.id })
-            return res.status(200).json(exerciseIds)
-        }
-
-        return res.status(403).json({ message: 'У вас нет прав на удаление страницы' })
-    }
-    catch (e) {
-        errorHandler(res, e)
-    }
+checkRoleAdmin = (req) => {
+    return req.user.role == 'ADMIN'
 }

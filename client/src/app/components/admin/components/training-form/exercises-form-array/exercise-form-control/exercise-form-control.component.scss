@@ -1,0 +1,11 @@
+mat-panel-title {
+  justify-content: space-between;
+}
+
+mat-expansion-panel {
+  border: 1px solid transparent;
+}
+
+mat-expansion-panel.ng-invalid {
+  border-color: #f44336;
+}

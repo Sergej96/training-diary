@@ -19,7 +19,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   musclesData: Muscle[] = []
   exerciseId!: string
   loading: boolean = false
-  destroy$:Subject<unknown> = new Subject()
+  destroy$ = new Subject()
 
   constructor(
     private route: ActivatedRoute,
@@ -39,19 +39,19 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
       muscles: new FormArray([], this.minSelectedCheckboxes(1))
     })
 
-    this.musclesData = this.exercisesService.muscles
-    this.addCheckboxes()
+    this.musclesData = this.exercisesService.muscles;
+    this.addCheckboxes();
 
     this.route.params
       .pipe(
         switchMap(
           (params: Params) => {
             if (params['id']) {
-              this.isNew = false
-              this.exerciseId = params['id']
-              return this.exercisesService.getById(params['id'])
+              this.isNew = false;
+              this.exerciseId = params['id'];
+              return this.exercisesService.getById(params['id']);
             }
-            return of(null)
+            return of(null);
           }
         ),
         takeUntil(this.destroy$)
@@ -60,12 +60,9 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
         exercise => {
           this.loading = false
           if (exercise) {
-            exercise.muscles.forEach((m:Muscle) => {
-              console.log(m);
-
+            exercise.muscles.forEach((m: Muscle) => {
               this.musclesFormArray.at(m.id).setValue(true)
             });
-
             this.form.patchValue({
               name: exercise.name,
               description: exercise.description,
@@ -73,7 +70,6 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
               recomend: exercise.recomend
             })
             this.cdr.markForCheck()
-
           }
         },
         error => {
@@ -82,7 +78,7 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
             duration: 3000
           })
         }
-      )
+      );
   }
 
   minSelectedCheckboxes(min: number): ValidatorFn {
@@ -101,12 +97,11 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.form.disable
-    let obs$
+    this.form.disable;
+    let obs$;
     const muscles = this.form.value.muscles
       .map((checked: boolean, i: number) => checked ? i : null)
-      .filter((v: any) => v !== null)
-
+      .filter((v: any) => v !== null);
 
     const exercise = {
       name: this.form.value.name,
@@ -115,13 +110,12 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
       recomend: this.form.value.recomend,
       muscles: muscles
     }
-    console.log(exercise);
 
     if (this.isNew) {
-      obs$ = this.exercisesService.create(exercise)
+      obs$ = this.exercisesService.create(exercise);
     }
     else {
-      obs$ = this.exercisesService.update(this.exerciseId, exercise)
+      obs$ = this.exercisesService.update(this.exerciseId, exercise);
     }
 
     obs$.subscribe(
@@ -137,31 +131,29 @@ export class ExerciseFormComponent implements OnInit, OnDestroy {
           verticalPosition: 'top',
           duration: 3000
         })
-      },
-      () => {
-        this.form.enable
-      }
-    )
-
+      }).add(() => {
+        this.form.enable;
+        this.cdr.detectChanges();
+      });
   }
 
   get musclesFormArray() {
-    return this.form.get('muscles') as FormArray
+    return this.form.get('muscles') as FormArray;
   }
 
   addCheckboxes() {
     this.musclesData.forEach(
       () => { this.musclesFormArray.push(new FormControl(false)) }
-    )
+    );
   }
 
-  trackMuscle(index: number){
-    return index
+  trackMuscle(index: number) {
+    return index;
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true)
-    this.destroy$.complete()
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
 }

@@ -1,4 +1,22 @@
-<p
-  *ngIf="userInfo$ | async as user ">
-  name: {{user.email}}, sorename: {{user.lastName}}
-</p>
+<div class="grid-container">
+  <h1 class="mat-h1">Панель управления</h1>
+  <mat-grid-list cols="2" rowHeight="200px">
+    <mat-grid-tile
+      *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows"
+    >
+      <mat-card
+        class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content
+          class="dashboard-card-content"
+        >
+          <h2>{{card.count | async}}</h2>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -1,26 +1,26 @@
 <div class="exercises">
   <div class="page__title">
-    <h4 class="title">Упражнения</h4>
+    <h2 class="title">Упражнения</h2>
     <button
       *ngIf="isAdmin"
       mat-raised-button
       color="primary"
       routerLink="new">Добавить упражнение</button>
   </div>
-
     <div class="search">
-        <mat-form-field class="search__block" appearance="fill">
-          <mat-label>Поиск</mat-label>
-          <input type="email" matInput [formControl]="search"
-                placeholder="Найти по нозванию">
-        </mat-form-field>
-        <button
-          class="btn-search"
-          (click)="onSubmit()"
-          >
-          <mat-icon>search</mat-icon>
-        </button>
-
+        <form>
+          <mat-form-field class="search__block" appearance="fill">
+            <mat-label>Поиск</mat-label>
+            <input type="email" matInput [formControl]="search"
+                  placeholder="Найти по нозванию">
+          </mat-form-field>
+          <button
+            class="btn-search"
+            (click)="onSubmitSearch()"
+            >
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
     </div>
     <ng-container *ngIf="exercises$ | async as exercises; else loader">
       <app-exercise-list
@@ -28,7 +28,6 @@
         [exercises]="exercises"
         (delete)="deleteExercise($event)">
       </app-exercise-list>
-
   </ng-container>
   <ng-template #loader>
     <app-loader></app-loader>

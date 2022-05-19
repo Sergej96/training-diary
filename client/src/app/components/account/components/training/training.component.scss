@@ -1,0 +1,27 @@
+.training {
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__main {
+    flex: 1 0 auto;
+    padding: 20px 16px;
+
+    &-content {
+      padding: 20px;
+    }
+  }
+
+  &__toolbar{
+    margin-bottom: 16px;
+
+    .clear{
+      margin-left: 8px;
+    }
+  }
+
+  &__right-column {
+    flex: 0 0 350px;
+  }
+}

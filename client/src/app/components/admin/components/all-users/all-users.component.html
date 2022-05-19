@@ -1,28 +1,32 @@
 <div class="page__title">
-  <h4 class="title">Список клиентов</h4>
+  <h2>Список клиентов</h2>
 </div>
-
-<section class="user-list" *ngIf="users$ | async as users; else loader">
+<div
+  class="user-list mat-list"
+  *ngIf="users$ | async as users; else loader"
+>
   <ng-container *ngIf="users.length !== 0; else empty">
-    <div class="user-list__item" *ngFor="let user of users">
+    <div
+      class="mat-list__item mat-list__item-bg-grey"
+      *ngFor="let user of users; trackBy: trackUser"
+    >
       <a [routerLink]="[user._id, 'training']">
         <div class="avatar">
           <span>{{user.firstName | slice:0:1 | uppercase}}{{user.lastName | slice:0:1 | uppercase}}</span>
         </div>
         <span class="name">
           {{user.firstName}} {{user.lastName}}
+        <span>({{user.email}})</span>
         </span>
       </a>
     </div>
   </ng-container>
-
   <ng-template #empty>
     <div class="center">
       <p>Список клиентов пустой</p>
     </div>
   </ng-template>
-</section>
-
+</div>
 <ng-template #loader>
   <app-loader></app-loader>
 </ng-template>

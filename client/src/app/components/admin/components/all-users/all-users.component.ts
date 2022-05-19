@@ -19,4 +19,7 @@ export class AllUsersComponent implements OnInit {
     this.users$ = this.userService.allUser()
   }
 
+  trackUser(index:number){
+    return index
+  }
 }

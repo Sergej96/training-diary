@@ -40,8 +40,4 @@ const userShema = new Schema({
     }
 })
 
-const validateEmail = (email) => {
-
-}
-
 module.exports = model('Users', userShema)

@@ -1,0 +1,23 @@
+
+  <mat-card class="exercise__item">
+    <mat-card-title-group>
+      <mat-card-title>
+        <a
+          [routerLink]="['/account/exercises',item.info?._id]"
+        >{{item.info?.name}}</a>
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{muscles | arrayMap :showMuscles }}
+      </mat-card-subtitle>
+      <app-approaches-list
+        [approachesList]="item.approaches">
+      </app-approaches-list>
+    </mat-card-title-group>
+    <mat-card-content
+      class="exercise__description"
+    >
+      <p>{{item.info?.description}}</p>
+    </mat-card-content>
+  </mat-card>
+
+

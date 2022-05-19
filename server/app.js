@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const authRoutes = require('./routes/auth')
 const traningRoutes = require('./routes/traning')
-const exercise = require('./routes/exercise')
+const exerciseRoutes = require('./routes/exercise')
 const userRoutes = require('./routes/user')
 const middlewarePassport = require('./middleware/passport')
 const keys = require('./config')
@@ -27,7 +27,7 @@ app.use(cors('dev'))
 
 app.use('/api/auth', authRoutes)
 app.use('/api/training', traningRoutes)
-app.use('/api/exercise', exercise)
+app.use('/api/exercise', exerciseRoutes)
 app.use('/api/user', userRoutes)
 
 module.exports = app

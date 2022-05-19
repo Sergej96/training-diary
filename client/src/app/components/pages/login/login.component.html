@@ -1,63 +1,52 @@
 <div class="login-form">
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
-                <div class="login-form__avatar">
-                    <img src="../../../assets/avatar.jpg" alt="avatar">
-                </div>
-
-                <mat-form-field appearance="fill" class="input">
-                    <mat-label>Почта</mat-label>
-                    <input type="email" matInput formControlName="email">
-
-                    <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-                        <span *ngIf="loginForm.get('email')?.errors?.['required']">
-                            Почта не должна быть пустой
-                        </span>
-                        <span *ngIf="loginForm.get('email')?.errors?.['email']">
-                            Введите корректно почтовый адрес
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="input">
-                    <mat-label>Пароль</mat-label>
-                    <input type="password"
-                      [type]="hidePassword ? 'password' : 'text'"
-                      matInput formControlName="password">
-                    <button
-                        mat-icon-button
-                        matSuffix
-                        [type]="'button'"
-                        (click)="hidePassword = !hidePassword"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hidePassword"
-                    >
-                      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-
-                    <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                        <span *ngIf="loginForm.get('password')?.errors?.['required']">
-                            Поле парольне должно быть пустым
-                        </span>
-                        <span *ngIf="loginForm.get('password')?.errors?.['pattern']">
-                            Введите корректный пароль
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-
-                <button
-                [disabled]="loginForm.invalid || loginForm.disabled"
-                mat-raised-button
-                color="primary"
-                class="btn-login"
-                type="submit"
-                >Вход
-                </button>
-            </form>
-            </mat-card-content>
-            <mat-card-footer *ngIf="loginForm.disabled">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </mat-card-footer>
-    </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+        <div class="login-form__avatar">
+          <mat-icon inline="true">account_circle</mat-icon>
+        </div>
+        <mat-form-field
+          appearance="fill"
+          class="input"
+        >
+          <mat-label>Почта</mat-label>
+          <input type="email" matInput formControlName="email">
+          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <span *ngIf="loginForm.get('email')?.errors?.['required']">
+              Почта не должна быть пустой
+            </span>
+            <span *ngIf="loginForm.get('email')?.errors?.['email']">
+              Введите корректно почтовый адрес
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Пароль</mat-label>
+          <input type="password" [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
+          <button mat-icon-button matSuffix [type]="'button'" (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">
+              Поле парольне должно быть пустым
+            </span>
+            <span *ngIf="loginForm.get('password')?.errors?.['pattern']">
+              Не менее 8 символов, включая цифру, строчную букву и специальные символы (!@#$%^&*)
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <button [disabled]="loginForm.invalid || loginForm.disabled" mat-raised-button color="primary" class="btn-login"
+          type="submit">Вход
+        </button>
+      </form>
+      <a
+        class="info-link"
+        routerLink="/registration">У вас нет аккаунта? Регистрация
+      </a>
+    </mat-card-content>
+    <mat-card-footer *ngIf="loginForm.disabled">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
 </div>

@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AccountLayoutsComponent } from '../../shared/layouts/account-layouts/account-layouts.component';
-import { ProgressTrainingComponent } from './components/progress-training/progress-training.component';
 import { TrainingsFormComponent } from './components/training-form/training-form.component';
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { ShareModule } from 'src/app/shared/shared.module';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { DashbordComponent } from './components/dashbord/dashbord.component';
-import { ExerciseDialog, ExerciseModalComponent } from './components/training-form/exercise-modal/exercise-modal.component';
-import { ExercisesComponent } from './components/exercises/exercises.component';
-import { ExerciseFormComponent } from './components/exercises/exercise-form/exercise-form.component';
+import { ExerciseDialog, AddExerciseModalComponent } from './components/training-form/add-exercise-modal/add-exercise-modal.component';
+import { ExercisesFormArrayComponent } from './components/training-form/exercises-form-array/exercises-form-array.component';
+import { ExerciseFormControlComponent } from './components/training-form/exercises-form-array/exercise-form-control/exercise-form-control.component';
+import { ApproachesFormArrayComponent } from './components/training-form/approaches-form-array/approaches-form-array.component';
+import { ApproacheFormControlComponent } from './components/training-form/approaches-form-array/approache-form-control/approache-form-control.component';
+import { AdminRoutingModule } from './admin-routing.module';
 
 
 @NgModule({
@@ -18,17 +20,19 @@ import { ExerciseFormComponent } from './components/exercises/exercise-form/exer
     AccountLayoutsComponent,
     AllUsersComponent,
     TrainingsFormComponent,
-    ProgressTrainingComponent,
     DashbordComponent,
-    ExerciseModalComponent,
+    AddExerciseModalComponent,
     ExerciseDialog,
-    ExercisesComponent,
-    ExerciseFormComponent
+    ExercisesFormArrayComponent,
+    ExerciseFormControlComponent,
+    ApproacheFormControlComponent,
+    ApproachesFormArrayComponent
   ],
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     ShareModule,
-    AppRoutingModule,
+    AdminRoutingModule
   ]
 })
 export class AdminModule { }

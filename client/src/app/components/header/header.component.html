@@ -1,48 +1,47 @@
 <mat-toolbar>
-    <header class="header">
-        <div class="logo">
-            <h2>Traning dairy</h2>
-        </div>
-        <nav class="header__nav">
-            <ul>
-                <li><a
-                    routerLink="/"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact:true}"
-                    mat-button
-                    >Главная</a>
-                </li>
-                <ng-container *ngIf="!isLoggedIn;else logoutTemplate">
-                  <li>
-                      <a
-                      routerLink="/registration"
-                      routerLinkActive="active"
-                      [routerLinkActiveOptions]="{exact: true}"
-                      mat-button
-                      >Регистрация</a>
-                  </li>
-                  <li>
-                      <a
-                      mat-raised-button
-                      color="primary"
-                      routerLink="/login"
-                      >Вход</a>
-                  </li>
-                </ng-container>
-                <ng-template #logoutTemplate>
-                    <li>
-                      <a
-                        routerLink="/account"
-                        routerLinkActive="active"
-                        [routerLinkActiveOptions]="{exact: true}"
-                        mat-button
-                      >Аккаунт</a>
-                    </li>
-                    <li>
-                        <a mat-raised-button color="primary" (click)="logout()">Выход</a>
-                    </li>
-                </ng-template>
-            </ul>
-        </nav>
-    </header>
+  <header class="header">
+    <div class="logo">
+      <h2>
+        <a routerLink="/">Traning dairy</a>
+      </h2>
+    </div>
+    <nav class="header__nav">
+      <ul>
+        <ng-container *ngIf="!isLoggedIn;else logoutTemplate">
+          <li>
+            <a
+              routerLink="/registration"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}"
+              mat-button
+            >Регистрация</a>
+          </li>
+          <li>
+            <a
+              mat-raised-button
+              color="primary"
+              routerLink="/login"
+            >Вход</a>
+          </li>
+        </ng-container>
+        <ng-template #logoutTemplate>
+          <li>
+            <a
+              routerLink="{{ isAdmin ? '/admin' : '/account' }}"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}"
+              mat-button
+            >Аккаунт</a>
+          </li>
+          <li>
+            <a
+              mat-raised-button
+              color="primary"
+              (click)="logout()"
+            >Выход</a>
+          </li>
+        </ng-template>
+      </ul>
+    </nav>
+  </header>
 </mat-toolbar>

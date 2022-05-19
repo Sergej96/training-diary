@@ -1,0 +1,11 @@
+  <mat-accordion>
+      <app-exercise-form-control
+        *ngFor="let exercise of itemsFormArray.controls; index as ei; trackBy: trackExercise"
+        [index]="ei"
+        [item]="exercise"
+        [exerciseName]="exercises ? exercises[ei]?.info?.name! : ''"
+        (removed)="itemsFormArray.removeAt($event)">
+      </app-exercise-form-control>
+  </mat-accordion>
+
+

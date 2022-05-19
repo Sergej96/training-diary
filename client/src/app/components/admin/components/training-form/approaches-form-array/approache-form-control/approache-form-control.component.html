@@ -1,0 +1,25 @@
+<ng-container [formGroup]="item">
+  <td class="mat-cell">
+    {{index + 1}}
+  </td>
+  <td class="mat-cell">
+    <app-input-number
+    formControlName="weight"
+    ></app-input-number>
+  </td>
+  <td class="mat-cell">
+    <app-input-number
+    formControlName="repeat"
+    ></app-input-number>
+  </td>
+  <td class="mat-cell">
+    <app-input-number
+    formControlName="breakBeforeInSec"
+    ></app-input-number>
+  </td>
+  <td class="mat-cell">
+    <button type="button" mat-raised-button color="warn" (click)="removed.emit(index)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </td>
+</ng-container>

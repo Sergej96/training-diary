@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { ArrayMapPipe } from "src/app/pipes/array-map.pipe";
+
 import { ShareModule } from "src/app/shared/shared.module";
 import { ExerciseDetailsComponent } from "./exercise-details/exercise-details.component";
 import { ExerciseFormComponent } from "./exercise-form/exercise-form.component";

@@ -1,45 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
 
-  registerForm!: FormGroup
-  minDate!: Date;
-  maxDate!: Date;
+  registerForm!: FormGroup;
+  currentYear: number = new Date().getFullYear();
+  minDate: Date = new Date(this.currentYear - 100, 0, 1);
+  maxDate: Date = new Date(this.currentYear - 16, 0, 1);
+  destroy$ = new Subject();
+  regPassword: string = '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}'
 
   constructor(
-    private auth: AuthService, 
-    private router: Router, 
-    private _snackBar: MatSnackBar) { 
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 100, 0, 1);
-    this.maxDate = new Date(currentYear - 16, 0, 1);
-  }
+    private auth: AuthService,
+    private router: Router,
+    private _snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
-    this.registerForm = new FormGroup({
-      email: new FormControl('',[Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}')
-      ]),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      birthdate: new FormControl()
-    });
-  }
-
-  onSubmitRegister(){
+  onSubmitRegister() {
     this.registerForm.disable()
-    this.auth.register(this.registerForm.value).subscribe(
+    this.auth.register(this.registerForm.value).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(
       () => {
         this.router.navigate(['login'], {
           queryParams: {
@@ -47,8 +37,8 @@ export class RegistrationComponent implements OnInit {
           }
         })
       },
-      (res) => {
-        this._snackBar.open(res.error.message, 'Закрыть', {
+      (error) => {
+        this._snackBar.open(error.error.message, 'Закрыть', {
           verticalPosition: 'top',
           duration: 3000
         })
@@ -56,6 +46,22 @@ export class RegistrationComponent implements OnInit {
     )
   }
 
+  ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(this.regPassword)
+      ]),
+      firstName: new FormControl(),
+      lastName: new FormControl(),
+      birthdate: new FormControl()
+    });
+  }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 
 }

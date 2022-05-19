@@ -68,3 +68,13 @@ module.exports.remove = async (req, res) => {
         errorHandler(res, e)
     }
 }
+
+module.exports.countUser = async (req, res) => {
+    try {
+        const count = await User.count({role: 'USER'})
+        return res.status(200).json(count)
+    }
+    catch (e) {
+        errorHandler(res, e)
+    }
+}

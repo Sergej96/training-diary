@@ -1,0 +1,23 @@
+<div class="number">
+  <button
+    class="btn-accent"
+    mat-stroked-button
+    type="button"
+    (click)="onRemove()"
+  >
+    <mat-icon color="accent">remove</mat-icon>
+  </button>
+  <input
+    type="number"
+    min="0"
+    [value]="value"
+    (input)="onInputValueChange($event)">
+  <button
+    class="btn-accent"
+    mat-stroked-button
+    type="button"
+    (click)="onAdd()"
+  >
+    <mat-icon color="accent">add</mat-icon>
+  </button>
+</div>

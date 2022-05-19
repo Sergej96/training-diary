@@ -34,7 +34,7 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  checkAdmin() {
+  isAdmin() {
     return this.getRoleUser() == 'ADMIN'
   }
 

@@ -1,0 +1,10 @@
+<div class="exercise-container">
+    <app-exercise-item
+        *ngFor="let exercise of exercisesList; index as ei; trackBy: trackExercise"
+        [index]="ei"
+        [item]="exercise"
+      >
+      </app-exercise-item>
+</div>
+
+

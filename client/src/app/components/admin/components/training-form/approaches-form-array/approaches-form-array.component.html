@@ -1,0 +1,37 @@
+<button
+  class="btn-add-approaches"
+  type="button"
+  mat-raised-button
+  color="primary" (click)="addApproache()"
+>
+  <mat-icon>add</mat-icon> Добавить подход
+</button>
+
+<table class="mat-table mat-elevation-z8">
+  <thead>
+    <tr class="mat-header-row">
+      <th class="mat-header-cell">
+        №
+      </th>
+      <th class="mat-header-cell">
+        Вес сноряда (кг.)
+      </th>
+      <th class="mat-header-cell">
+        Количество повторений
+      </th>
+      <th class="mat-header-cell">
+        Время отдыха между подходами (сек.)
+      </th>
+      <th class="mat-header-cell">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="app-approache-form-control mar-row"
+      *ngFor="let approache of itemsFormArray.controls; index as ai; trackBy:trackApproache"
+      [index]="ai"
+      [item]="approache"
+      (removed)="itemsFormArray.removeAt($event)"
+    ></tr>
+  </tbody>
+</table>

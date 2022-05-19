@@ -1,7 +1,10 @@
+:host{
+  flex: 1 0 auto;
+}
+
 .loader-wrapper{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 100%;
 }

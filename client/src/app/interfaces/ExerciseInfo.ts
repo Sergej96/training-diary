@@ -1,8 +1,10 @@
+import { Muscle } from "./Muscle";
+
 export interface ExerciseInfo{
+  _id?: string,
   name: string,
   description: string,
   technique: string,
   recomend: string,
-  muscles: number[],
-  _id?: string
+  muscles: Muscle[]
 }

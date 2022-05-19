@@ -1,9 +1,9 @@
 import { Approache } from "./Approache";
+import { ExerciseInfo } from "./ExerciseInfo";
 
 export interface Exercise {
-  name: string,
-  descriptions: string,
-  muscle: string,
   approaches: Approache[]
-  _id?: string
+  exerciseId: string,
+  name?: string,
+  info?: ExerciseInfo
 }

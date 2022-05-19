@@ -1,0 +1,35 @@
+<div class="training">
+  <div class="page__title">
+    <h2>
+      Расписание тренировок
+    </h2>
+  </div>
+  <div *ngIf="!loading; else loader">
+    <div class="training__wrapper">
+      <div class="training__main">
+          <div class="training__toolbar">
+          </div>
+          <div class="trianing-container" *ngIf="selectTraining;else empty">
+            <app-exercises-list
+              [exercisesList]="selectTraining.exercises"
+              >
+            </app-exercises-list>
+          </div>
+        <ng-template #empty>
+          <div class="center">
+            Список тренировок пустой
+          </div>
+        </ng-template>
+      </div>
+      <div class="training__right-column">
+        <div class="accordion-content">
+          <app-calendar [selectDate]="selectDate" [dateClass]="dateClass()" (selectedChange)="onSelectDate($event)">
+          </app-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</div>

@@ -1,7 +1,12 @@
-<mat-list class="exercise__list" *ngIf="exercises?.length !== 0; else empty">
-  <mat-list-item class="exercise__item" *ngFor="let exercise of exercises; trackBy: trackExercise" >
+<div
+  class="mat-list"
+  *ngIf="exercises?.length !== 0; else empty"
+>
+  <div
+    class="mat-list__item exercise__item mat-list__item-bg-grey"
+    *ngFor="let exercise of exercises; trackBy: trackExercise"
+  >
     <a
-      class="exercise__link"
       [routerLink]="exercise._id">
       <span class="title">{{exercise.name}}</span>
     </a>
@@ -15,8 +20,8 @@
     >
       <mat-icon>delete</mat-icon>
     </button>
-  </mat-list-item>
-</mat-list>
+  </div>
+</div>
 
 <ng-template #empty>
   <div class="center">

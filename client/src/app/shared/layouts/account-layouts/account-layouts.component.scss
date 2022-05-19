@@ -1,8 +1,23 @@
 .content {
 
+  .left-column {
+    padding: 20px 4px;
+  }
+
+  .main {
+    padding: 20px 30px;
+
+  }
+}
+
+@media (max-width: 1200px){
+  .content{
+
     .left-column{
-        padding: 20px 20px 20px 4px;
+      padding: 20px 15px 20px 4px;
     }
-    .container{
+    .main{
+      padding: 20px;
     }
+  }
 }
